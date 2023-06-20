@@ -18,7 +18,7 @@ class TheMetStore: ObservableObject {
       return
     }
     
-    let stream = getResponseStream(for: objectIDs.objectIDs)
+    let stream = getResultsStream(for: objectIDs.objectIDs)
     for try await object in stream {
       if let object = object {
         objects.append(object)
@@ -26,7 +26,7 @@ class TheMetStore: ObservableObject {
     }
   }
   
-  private func getResponseStream(for objectIDs: [Int]) -> AsyncStream<Object?> {
+  private func getResultsStream(for objectIDs: [Int]) -> AsyncStream<Object?> {
     AsyncStream { continuation in
       Task {
         for (index, objectID) in objectIDs.enumerated() where index < self.maxIndex {
